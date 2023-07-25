@@ -1,0 +1,19 @@
+platform :android do
+    desc 'Build the Android application.'
+    lane :build do
+      gradle(task: 'clean', project_dir: 'android/')
+      gradle(task: 'assemble', build_type: 'release', project_dir: 'android/')
+    end
+
+
+    desc 'Build and upload to App Center.'
+    lane :beta do
+    build
+    appcenter_upload(
+        api_token: "7f030f375b4f9efda218c60c9febf0e53260cb09",
+        owner_name: "vishal.gogawale-expleogroup.com",
+        app_name: "MyFirstApp",
+        apk: "./android/app/build/outputs/apk/release/app-release.apk"
+        )
+    end
+end

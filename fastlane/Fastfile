@@ -17,3 +17,34 @@ platform :android do
         )
     end
 end
+
+platform :ios do    
+  desc 'Fetch certificates and provisioning profiles'
+  lane :certificates do
+    match(app_identifier: 'com.expleo.appmob')
+  end
+  desc 'Build IOS application'
+  lane :build_stagging_ios do
+    cocoapods(podfile: "./ios/Podfile")
+    certificates
+    gym(
+      scheme: 'myfirstapp', 
+      project: './ios/myfirstapp.xcodeproj',
+      clean: true, 
+      workspace: './ios/myfirstapp.xcworkspace', 
+      export_method: 'development', 
+      output_directory: './builds'
+    
+  )
+  end
+  desc 'Build IOS application and upload to appcenter'
+  lane :ios_beta do
+    build_stagging_ios
+    appcenter_upload(
+      api_token: "7f030f375b4f9efda218c60c9febf0e53260cb09",
+          owner_name: "vishal.gogawale-expleogroup.com",
+          app_name: "MyFirstApp_ios",
+          ipa: "./builds"
+    )
+  end
+end

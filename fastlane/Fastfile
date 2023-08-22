@@ -13,7 +13,7 @@ platform :android do
         api_token: "7f030f375b4f9efda218c60c9febf0e53260cb09",
         owner_name: "vishal.gogawale-expleogroup.com",
         app_name: "MyFirstApp",
-        apk: "./android/app/build/outputs/debug/debug/app-debug.apk"
+        apk: "./android/app/build/outputs/apk/debug/app-debug.apk"
         )
     end
 end
